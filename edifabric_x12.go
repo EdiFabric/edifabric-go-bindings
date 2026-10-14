@@ -215,7 +215,8 @@ func bind(path string) (*Library, error) {
 //
 // path may be the library file or the folder containing it. When empty, the
 // EDIFABRIC_X12_LIB variable, the executable's folder, the working directory,
-// and its parent are tried in that order. Cached after the first success.
+// and its parent are tried in that order, then the library registered with
+// RegisterBundledLibrary. Cached after the first success.
 func LoadLibrary(path string) (*Library, error) {
 	mu.Lock()
 	defer mu.Unlock()
@@ -239,6 +240,18 @@ func loadLocked(path string) (*Library, error) {
 		}
 		current = lib
 		return lib, nil
+	}
+	if bundled.data != nil {
+		tried = append(tried, "the bundled library")
+		file, err := extractBundled()
+		if err == nil {
+			var lib *Library
+			if lib, err = bind(file); err == nil {
+				current = lib
+				return lib, nil
+			}
+		}
+		lastErr = err
 	}
 	return nil, fmt.Errorf("could not load %s. Tried: %s. Last error: %v",
 		libraryFile, strings.Join(tried, ", "), lastErr)

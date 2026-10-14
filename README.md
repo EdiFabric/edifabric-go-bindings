@@ -12,15 +12,38 @@ They load the library at runtime, so **cgo and a C compiler are not required**.
 | File | Purpose |
 | --- | --- |
 | `edifabric_x12.go` | bindings for the complete C ABI (package `edifabricx12`) |
-| `load_windows.go`, `load_unix.go` | platform library loading |
+| `load_windows.go`, `load_unix.go`, `bundled.go` | platform library loading |
+| `native/` | separate module that embeds the native library for each platform |
 | `example_all_functions/main.go` | runnable walkthrough of every entry point |
 | `c-abi-edifabric_x12_tools.h` | the C header these bindings mirror |
+| `PUBLISHING.md` | how the modules are released |
+
+## Install
+
+```bash
+go get github.com/EdiFabric/edifabric-go-bindings@v1.1.1
+go get github.com/EdiFabric/edifabric-go-bindings/native@v1.1.1
+```
+
+The second module is optional. Import it once, anywhere in your program, to embed the
+ediFabric Native library for the target platform: Windows x64, Linux x64 and arm64
+(glibc 2.34 or later), or macOS arm64 (12 or later).
+
+```go
+import _ "github.com/EdiFabric/edifabric-go-bindings/native"
+```
+
+On first use the library is written to the user cache folder under `edifabric-x12/`
+and loaded from there. A library you pass to `LoadLibrary`, set in
+`EDIFABRIC_X12_LIB`, or put beside the executable or in the working directory takes
+precedence over the embedded one. Leave the import out to ship the library yourself
+and keep about 8 MB out of the binary.
 
 ## Requirements
 
 - Go 1.25 or later
 - 64-bit Windows, Linux, or macOS
-- The native library for your platform:
+- The native library for your platform (embedded by the `native` module; download it when you don't import that module):
 
 | Platform | File |
 | --- | --- |
@@ -67,7 +90,8 @@ go run ./example_all_functions --root /path/to/repo   # folder with the edi and 
 You can also set `EDIFABRIC_SERIAL` instead of passing `--serial`.
 
 The library path is resolved from `--lib`, then `EDIFABRIC_X12_LIB`, then the
-executable's folder, the working directory, and its parent. The serial comes from
+executable's folder, the working directory, its parent, and finally the library
+embedded by the `native` module, if imported. The serial comes from
 `--serial`, then `EDIFABRIC_SERIAL`.
 
 All strings and payloads cross the boundary as **UTF‑8 byte buffers**
