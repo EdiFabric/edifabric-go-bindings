@@ -6,8 +6,8 @@ holds two modules, released together with the same version:
 
 | Module | Tag | Contents |
 | --- | --- | --- |
-| `github.com/EdiFabric/edifabric-go-bindings` | `v1.1.1` | the bindings |
-| `github.com/EdiFabric/edifabric-go-bindings/native` | `native/v1.1.1` | the four native libraries in `native/bin/<rid>/`, embedded with `go:embed` |
+| `github.com/EdiFabric/edifabric-go-bindings` | `v1.2.0` | the bindings |
+| `github.com/EdiFabric/edifabric-go-bindings/native` | `native/v1.2.0` | the four native libraries in `native/bin/<rid>/`, embedded with `go:embed` |
 
 The `native` package embeds only the library for the target (`windows/amd64`, `linux/amd64`,
 `linux/arm64`, `darwin/arm64`) and passes it to `edifabricx12.RegisterBundledLibrary`, which
@@ -44,14 +44,14 @@ after the native build for that version is uploaded there.
 3. Validate:
    - GitHub: **Actions > Release Go modules > Run workflow** with the version and **dry-run**
      checked
-   - or locally: `./scripts/release.ps1 -Version 1.1.1 -DryRun` (Windows) or
-     `scripts/release.sh 1.1.1 --dry-run`. This leaves the libraries in `native/bin/` and the
+   - or locally: `./scripts/release.ps1 -Version 1.2.0 -DryRun` (Windows) or
+     `scripts/release.sh 1.2.0 --dry-run`. This leaves the libraries in `native/bin/` and the
      version in `native/go.mod` as uncommitted changes; discard them or let the release commit them.
-4. Release: run the workflow with **dry-run** cleared, or `./scripts/release.ps1 -Version 1.1.1`
-   or `scripts/release.sh 1.1.1`. Both commit `native/` as `Release v1.1.1`, create the tags
-   `v1.1.1` and `native/v1.1.1`, push the branch and tags, and ask proxy.golang.org to fetch
+4. Release: run the workflow with **dry-run** cleared, or `./scripts/release.ps1 -Version 1.2.0`
+   or `scripts/release.sh 1.2.0`. Both commit `native/` as `Release v1.2.0`, create the tags
+   `v1.2.0` and `native/v1.2.0`, push the branch and tags, and ask proxy.golang.org to fetch
    both modules. The workflow also creates the GitHub release.
-5. Check: `go list -m github.com/EdiFabric/edifabric-go-bindings/native@v1.1.1` from any folder.
+5. Check: `go list -m github.com/EdiFabric/edifabric-go-bindings/native@v1.2.0` from any folder.
    The listing on pkg.go.dev appears within a few minutes.
 
 The proxy and checksum database keep a version permanently, even if the tag is deleted, so never

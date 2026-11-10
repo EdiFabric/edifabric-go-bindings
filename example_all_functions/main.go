@@ -302,9 +302,10 @@ func runDemos(serial string) (err error) {
 		}
 	}()
 
-	// Community authorizes with the serial only. Developer can also use EnsureToken, Enterprise SetToken.
-	check(ef.SetSerial(serial))
-	fmt.Println("  SetSerial -> ok")
+	// EnsureToken licenses the process on every plan: Community and the demo serial are checked online on every
+	// operation, and Developer, Enterprise and Perpetual get a cached token.
+	check(ef.EnsureToken(serial, 3600))
+	fmt.Println("  EnsureToken -> ok")
 
 	demoTokenExpiration()
 

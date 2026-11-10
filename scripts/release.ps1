@@ -8,8 +8,8 @@ plus the tags v<Version> (the bindings) and native/v<Version> (the libraries). N
 push rights to the remote. -DryRun stages and smoke-tests without committing, tagging, or pushing.
 
 .EXAMPLE
-./scripts/release.ps1 -Version 1.1.1 -DryRun
-./scripts/release.ps1 -Version 1.1.1
+./scripts/release.ps1 -Version 1.2.0 -DryRun
+./scripts/release.ps1 -Version 1.2.0
 #>
 param(
     [Parameter(Mandatory)][ValidatePattern('^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$')][string]$Version,

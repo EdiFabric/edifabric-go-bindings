@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: Version without the v, for example 1.1.1
+        description: Version without the v, for example 1.2.0
         required: true
       dry-run:
         description: Smoke-test only; do not commit, tag, or push

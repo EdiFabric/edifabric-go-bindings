@@ -5,8 +5,8 @@
 # plus the tags v<version> (the bindings) and native/v<version> (the libraries). Needs Go 1.25+
 # and push rights to the remote.
 #
-#   scripts/release.sh 1.1.1 --dry-run   stage and smoke-test without committing, tagging, or pushing
-#   scripts/release.sh 1.1.1             release
+#   scripts/release.sh 1.2.0 --dry-run   stage and smoke-test without committing, tagging, or pushing
+#   scripts/release.sh 1.2.0             release
 set -euo pipefail
 cd "$(dirname "$0")/.."
 module=github.com/EdiFabric/edifabric-go-bindings
