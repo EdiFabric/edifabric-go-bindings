@@ -2,7 +2,7 @@ module github.com/EdiFabric/edifabric-go-bindings/native
 
 go 1.25.0
 
-require github.com/EdiFabric/edifabric-go-bindings v1.2.0
+require github.com/EdiFabric/edifabric-go-bindings v1.2.1
 
 require github.com/ebitengine/purego v0.11.1 // indirect
 
