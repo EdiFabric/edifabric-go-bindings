@@ -26,6 +26,16 @@ func main() {
 		fail(err)
 	}
 	fmt.Println("GetAppVersion ->", version)
+
+	// The license check uses OpenSSL on Linux, which loading alone doesn't.
+	serial := os.Getenv("EDIFABRIC_SERIAL")
+	if serial == "" {
+		serial = "bd96a836feca45cb91c86ee65d281f52"
+	}
+	if err := edifabricx12.EnsureToken(serial, 3600); err != nil {
+		fail(err)
+	}
+	fmt.Println("EnsureToken -> ok")
 }
 
 func fail(err error) {

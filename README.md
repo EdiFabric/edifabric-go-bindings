@@ -21,8 +21,8 @@ They load the library at runtime, so **cgo and a C compiler are not required**.
 ## Install
 
 ```bash
-go get github.com/EdiFabric/edifabric-go-bindings@v1.2.1
-go get github.com/EdiFabric/edifabric-go-bindings/native@v1.2.1
+go get github.com/EdiFabric/edifabric-go-bindings@v1.2.2
+go get github.com/EdiFabric/edifabric-go-bindings/native@v1.2.2
 ```
 
 The second module is optional. Import it once, anywhere in your program, to embed the
